@@ -3,6 +3,23 @@ import time
 from functools import wraps
 
 
+# 推荐 -----------------------------------
+def cost_time(func):
+    """
+    测量函数运行速度，并打印所在模块
+    """
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+
+        start = time.clock()
+        res = func(*args, **kwargs)
+        end = time.clock()
+
+        print('function < {0} > cost_time :{1}s'.format(func.__name__, end - start))
+        return res
+    return wrapper
+# -----------------------------------------
+
 def cost_time():
     """
     测量函数运行速度，并打印所在模块
@@ -18,7 +35,7 @@ def cost_time():
             return res
         return _deco
     return deco
-
+    
 
 # 定义一个计时器，传入一个，并返回另一个附加了计时功能的方法
 def timeit4(func):
